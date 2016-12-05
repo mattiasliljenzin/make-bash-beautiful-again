@@ -10,9 +10,9 @@ parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-loadSSHBB(){
+loadSSH(){
     eval `ssh-agent`
-    ssh-add ~/.ssh/id_bb_rsa
+    ssh-add ~/.ssh/id_rsa
 }
  
 # Prompt with Git branch
@@ -31,11 +31,5 @@ complete -W "$(while read line; do echo ${line%%[, ]*}; done < ~/.ssh/known_host
 test -f ~/.git-completion.bash && . $_
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh  # This loads NVM
 
-##
-# Your previous /Users/mliljenzin/.bash_profile file was backed up as /Users/mliljenzin/.bash_profile.macports-saved_2016-09-09_at_17:35:05
-##
-
-# MacPorts Installer addition on 2016-09-09_at_17:35:05: adding an appropriate PATH variable for use with MacPorts.
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
 
