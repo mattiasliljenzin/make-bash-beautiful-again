@@ -9,18 +9,10 @@ alias ll='ls -lG'
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-
-loadSSH(){
-    eval `ssh-agent`
-    ssh-add ~/.ssh/id_rsa
-}
  
 # Prompt with Git branch
 # Explanation of the weird lines: \u Username, \h Host, \w Path, tput setaf is the color definition
  export PS1=' $(tput setaf 214) \w\[\e[0m\]$(tput setaf 2)$(parse_git_branch)\[$(tput sgr0)\] $ '
-# export PS1="\h\w: \[$(tput setaf 2 sgr0)\]"
-# export PS1='\[$(tput setaf 2)\]\h:\[$(tput setaf 2)\]\w\[$(tput setaf 7\]$(parse_git_branch)\[$(tput sgr0)\] $ '
-# export PS1='\[$(tput bold)$(tput setb 4)$(tput setaf 7)\]\u@\h:\w $ \[$(tput sgr0)\] $ '
 
 # Bonus track: SSH autocompleting hostnames, write ssh and press tab
 complete -W "$(while read line; do echo ${line%%[, ]*}; done < ~/.ssh/known_hosts)" ssh
